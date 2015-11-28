@@ -1,0 +1,52 @@
+<h1>Add Dataset</h1>
+
+<label for="select">Feature Class</label>
+<select v-on:change="featureClassChange">
+	<option value="">Select...</option>
+	<option v-for="item in featureClasses">{{ item }}</option>
+</select>
+
+<form v-if="featureClass.name">
+	<p>
+		<label for="name">Name <abbr title="Required">*</abbr></label>
+		<input id="name" type="text" placeholder="Dataset name" v-model="featureClass.name">
+	</p>
+	<p>
+		<label for="description">Description</label>
+		<textarea id="description" rows="4" cols="48" placeholder="Description" v-model="metadata.MD_Metadata.identificationInfo.MD_DataIdentification.purpose['gco:CharacterString']"></textarea>
+	</p>
+	<table class="table no-borders" role="grid" summary="Field details" class="tablesaw tablesaw-stack" data-tablesaw-mode="stack">
+		<thead>
+			<tr>
+				<th scope="col">Field</th>
+				<th scope="col">Alias</th>
+				<th scope="col">Type</th>
+				<th scope="col">Description</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr v-for="field in featureClass.fields">
+				<td><input type="text" v-model="field.name"></td>
+				<td><input type="text" v-model="field.aliasName" placeholder="Alias"></td>
+				<td>
+					<select v-model="field.type">
+						<option value="">Select...</option>
+						<option>Blob</option>
+						<option>Date</option>
+						<option>Double</option>
+						<option>Geometry</option>
+						<option>Guid</option>
+						<option value="Integer">Integer (Long Integer)</option>
+						<option value="OID">Object ID</option>
+						<option>Raster</option>
+						<option value="Single">Single (Float)</option>
+						<option value="SmallInteger">Small Integer (Short Integer)</option>
+						<option value="String">String (Text)</option>
+					</select>
+				</td>
+				<td><input type="text" v-model="field.description" placeholder="Description"></td>
+			</tr>
+		</tbody>
+	</table>
+		
+</form>
